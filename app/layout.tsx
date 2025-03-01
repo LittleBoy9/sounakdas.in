@@ -4,7 +4,6 @@ import "/styles/css/card.scss";
 import "/styles/css/globals.scss";
 import { GoogleTagManager } from "@next/third-parties/google";
 import NavSection from "./components/NavSection";
-import ScrollToTop from "@/helper/ScrollToTop";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
