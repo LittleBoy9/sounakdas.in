@@ -9,7 +9,7 @@ type GlowCardProps = {
 
 const GlowCard: FC<GlowCardProps> = ({ children, identifier }) => {
   useEffect(() => {
-    if (typeof window === "undefined") return; // ✅ Prevents SSR execution
+    if (typeof document === "undefined") return; // ✅ Prevents SSR execution
 
     const CONTAINER = document.querySelector(
       `.glow-container-${identifier}`
