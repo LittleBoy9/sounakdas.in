@@ -10,7 +10,7 @@ import SkillSection from "./components/SkillSection";
 
 export default function Home() {
   return (
-    <>
+    <div suppressHydrationWarning>
       <HeroSection />
       <AboutSection />
       <ExperienceSection />
@@ -21,6 +21,6 @@ export default function Home() {
       <ContactSection />
 
       <FooterSection />
-    </>
+    </div>
   );
 }
