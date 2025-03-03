@@ -1,5 +1,5 @@
 import AboutSection from "./components/AboutSection";
-import BlogSection from "./components/BlogSection";
+// import BlogSection from "./components/BlogSection";
 import ContactSection from "./components/ContactSection";
 import EducationSection from "./components/EducationSection";
 import ExperienceSection from "./components/ExperienceSection";
@@ -17,7 +17,7 @@ export default function Home() {
       <SkillSection />
       <ProjectSection />
       <EducationSection />
-      <BlogSection />
+      {/* <BlogSection /> */}
       <ContactSection />
 
       <FooterSection />

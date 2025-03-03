@@ -1,5 +1,9 @@
 {
   "name": "sounakdas.in",
+  "description": "Portfolio of Sounak Das",
+  "author": {
+    "name": "Sounak Das"
+  },
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,24 +13,31 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@next/third-parties": "^15.2.0",
-    "axios": "^1.8.1",
-    "lottie-react": "^2.4.1",
-    "next": "14.2.9",
+    "@emailjs/browser": "^4.4.1",
+    "@microsoft/clarity": "^1.0.0",
+    "@next/third-parties": "^15.0.4",
+    "axios": "^1.7.9",
+    "lottie-react": "^2.4.0",
+    "next": "14.2.3",
+    "nodemailer": "^6.9.16",
     "react": "^18",
     "react-dom": "^18",
     "react-fast-marquee": "^1.6.5",
-    "react-icons": "^5.5.0",
-    "react-toastify": "^11.0.5",
-    "sass": "^1.85.1"
+    "react-google-recaptcha": "^3.1.0",
+    "react-icons": "^5.4.0",
+    "react-simple-typewriter": "^5.0.1",
+    "react-toastify": "^10.0.6",
+    "sharp": "^0.33.5"
   },
   "devDependencies": {
     "@types/node": "^20",
+    "@types/nodemailer": "^6.4.17",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
-    "eslint-config-next": "14.2.9",
+    "eslint-config-next": "15.0.4",
     "postcss": "^8",
+    "sass": "^1.82.0",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }

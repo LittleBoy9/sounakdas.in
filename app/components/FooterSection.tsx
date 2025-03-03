@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React from 'react'
-import { CgGitFork } from 'react-icons/cg';
-import { IoStar } from 'react-icons/io5';
+// import { CgGitFork } from 'react-icons/cg';
+// import { IoStar } from 'react-icons/io5';
 
 const FooterSection = () => {
     return (
@@ -14,7 +14,7 @@ const FooterSection = () => {
               <p className="text-sm">
                 © Developer Portfolio by <Link target="_blank" href="https://www.linkedin.com/in/abu-said-bd/" className="text-[#16f2b3]">Sounak Das</Link>
               </p>
-              <div className="flex items-center gap-5">
+              {/* <div className="flex items-center gap-5">
                 <Link
                   target="_blank"
                   href="https://github.com/said7388/developer-portfolio"
@@ -31,7 +31,7 @@ const FooterSection = () => {
                   <CgGitFork />
                   <span>Fork</span>
                 </Link>
-              </div>
+              </div> */}
             </div>
           </div>
         </div >
