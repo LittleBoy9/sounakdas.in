@@ -9,83 +9,82 @@ type GlowCardProps = {
 
 const GlowCard: FC<GlowCardProps> = ({ children, identifier }) => {
   useEffect(() => {
-    if (typeof document === "undefined") return; // ✅ Prevents SSR execution
+    if (typeof document !== "undefined") {
+      const CONTAINER = document.querySelector(
+        `.glow-container-${identifier}`
+      ) as HTMLElement;
+      const CARDS: NodeListOf<HTMLElement> = document.querySelectorAll(
+        `.glow-card-${identifier}`
+      );
 
-    const CONTAINER = document.querySelector(
-      `.glow-container-${identifier}`
-    ) as HTMLElement;
-    const CARDS: NodeListOf<HTMLElement> = document.querySelectorAll(
-      `.glow-card-${identifier}`
-    );
+      if (!CONTAINER || !CARDS) return;
 
-    if (!CONTAINER || !CARDS) return;
+      const CONFIG = {
+        proximity: 40,
+        spread: 80,
+        blur: 12,
+        gap: 32,
+        vertical: false,
+        opacity: 0,
+      };
 
-    const CONFIG = {
-      proximity: 40,
-      spread: 80,
-      blur: 12,
-      gap: 32,
-      vertical: false,
-      opacity: 0,
-    };
+      const UPDATE = (event?: PointerEvent) => {
+        Array.from(CARDS).forEach((CARD) => {
+          const CARD_BOUNDS = CARD.getBoundingClientRect();
 
-    const UPDATE = (event?: PointerEvent) => {
-      Array.from(CARDS).forEach((CARD) => {
-        const CARD_BOUNDS = CARD.getBoundingClientRect();
-    
-        if (
-          (event?.x ?? 0) > CARD_BOUNDS.left - CONFIG.proximity &&
-          (event?.x ?? 0) <
-            CARD_BOUNDS.left + CARD_BOUNDS.width + CONFIG.proximity &&
-          (event?.y ?? 0) > CARD_BOUNDS.top - CONFIG.proximity &&
-          (event?.y ?? 0) <
-            CARD_BOUNDS.top + CARD_BOUNDS.height + CONFIG.proximity
-        ) {
-          CARD.style.setProperty("--active", "1");
-        } else {
-          CARD.style.setProperty("--active", CONFIG.opacity.toString());
+          if (
+            (event?.x ?? 0) > CARD_BOUNDS.left - CONFIG.proximity &&
+            (event?.x ?? 0) <
+              CARD_BOUNDS.left + CARD_BOUNDS.width + CONFIG.proximity &&
+            (event?.y ?? 0) > CARD_BOUNDS.top - CONFIG.proximity &&
+            (event?.y ?? 0) <
+              CARD_BOUNDS.top + CARD_BOUNDS.height + CONFIG.proximity
+          ) {
+            CARD.style.setProperty("--active", "1");
+          } else {
+            CARD.style.setProperty("--active", CONFIG.opacity.toString());
+          }
+
+          const CARD_CENTER = [
+            CARD_BOUNDS.left + CARD_BOUNDS.width * 0.5,
+            CARD_BOUNDS.top + CARD_BOUNDS.height * 0.5,
+          ];
+
+          let ANGLE =
+            (Math.atan2(
+              (event?.y ?? 0) - CARD_CENTER[1],
+              (event?.x ?? 0) - CARD_CENTER[0]
+            ) *
+              180) /
+            Math.PI;
+
+          ANGLE = ANGLE < 0 ? ANGLE + 360 : ANGLE;
+
+          CARD.style.setProperty("--start", (ANGLE + 90).toString());
+        });
+      };
+
+      document.body.addEventListener("pointermove", UPDATE);
+
+      const RESTYLE = () => {
+        if (CONTAINER) {
+          CONTAINER.style.setProperty("--gap", CONFIG.gap.toString());
+          CONTAINER.style.setProperty("--blur", CONFIG.blur.toString());
+          CONTAINER.style.setProperty("--spread", CONFIG.spread.toString());
+          CONTAINER.style.setProperty(
+            "--direction",
+            CONFIG.vertical ? "column" : "row"
+          );
         }
-    
-        const CARD_CENTER = [
-          CARD_BOUNDS.left + CARD_BOUNDS.width * 0.5,
-          CARD_BOUNDS.top + CARD_BOUNDS.height * 0.5,
-        ];
-    
-        let ANGLE =
-          (Math.atan2(
-            (event?.y ?? 0) - CARD_CENTER[1],
-            (event?.x ?? 0) - CARD_CENTER[0]
-          ) *
-            180) /
-          Math.PI;
-    
-        ANGLE = ANGLE < 0 ? ANGLE + 360 : ANGLE;
-    
-        CARD.style.setProperty("--start", (ANGLE + 90).toString());
-      });
-    };
-    
+      };
 
-    document.body.addEventListener("pointermove", UPDATE);
+      RESTYLE();
+      UPDATE();
 
-    const RESTYLE = () => {
-      if (CONTAINER) {
-        CONTAINER.style.setProperty("--gap", CONFIG.gap.toString());
-        CONTAINER.style.setProperty("--blur", CONFIG.blur.toString());
-        CONTAINER.style.setProperty("--spread", CONFIG.spread.toString());
-        CONTAINER.style.setProperty(
-          "--direction",
-          CONFIG.vertical ? "column" : "row"
-        );
-      }
-    };
-
-    RESTYLE();
-    UPDATE();
-
-    return () => {
-      document.body.removeEventListener("pointermove", UPDATE);
-    };
+      return () => {
+        document.body.removeEventListener("pointermove", UPDATE);
+      };
+    }
   }, [identifier]);
 
   return (
