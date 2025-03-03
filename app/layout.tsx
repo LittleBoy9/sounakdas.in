@@ -11,8 +11,7 @@ export const metadata: Metadata = {
   description:
     "This is the portfolio of Sounak Das. I am a full stack developer and a self taught developer. I love to learn new things and I am always open to collaborating with others. I am a quick learner and I am always looking for new challenges.",
 };
-
-export const RootLayout = ({
+const RootLayout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -32,3 +31,4 @@ export const RootLayout = ({
     </html>
   );
 }
+export default RootLayout;
