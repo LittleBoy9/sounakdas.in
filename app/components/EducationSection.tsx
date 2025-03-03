@@ -1,10 +1,14 @@
 import GlowCard from '@/helper/GlowCard';
 import React from 'react'
 import Image from "next/image";
-import AnimationLottie from '@/helper/AnimationLottie';
+// import AnimationLottie from '@/helper/AnimationLottie';
 import { educations } from '@/utils/data/educations';
 import lottieFile from '../../public/assets/lottie/study.json';
 import { BsPersonWorkspace } from 'react-icons/bs';
+import dynamic from 'next/dynamic';
+const AnimationLottie = dynamic(() => import("@/helper/AnimationLottie"),{
+  ssr: false
+});
 
 const EducationSection = () => {
     return (
