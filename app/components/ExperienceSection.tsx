@@ -1,10 +1,18 @@
 import React from "react";
 import Image from "next/image";
-import AnimationLottie from "@/helper/AnimationLottie";
+// import AnimationLottie from "@/helper/AnimationLottie";
 import { BsPersonWorkspace } from "react-icons/bs";
 import GlowCard from "@/helper/GlowCard";
 import { experiences } from "@/utils/data/experience";
 import experience from "../../public/assets/lottie/code.json";
+import dynamic from "next/dynamic";
+
+const AnimationLottie = dynamic(
+  () => import("@/helper/AnimationLottie"),
+  {
+    ssr: false,
+  }
+)
 const ExperienceSection = () => {
   return (
     <div
