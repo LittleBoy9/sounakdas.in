@@ -3,7 +3,7 @@ import AboutSection from "./components/AboutSection";
 import ContactSection from "./components/ContactSection";
 import EducationSection from "./components/EducationSection";
 import ExperienceSection from "./components/ExperienceSection";
-// import FooterSection from "./components/FooterSection";
+import FooterSection from "./components/FooterSection";
 import HeroSection from "./components/HeroSection";
 import ProjectSection from "./components/ProjectSection";
 import SkillSection from "./components/SkillSection";
@@ -20,7 +20,7 @@ export default function Home() {
       {/* <BlogSection /> */}
       <ContactSection />
 
-      {/* <FooterSection /> */}
+      <FooterSection />
     </div>
   );
 }
