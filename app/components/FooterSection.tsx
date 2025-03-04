@@ -1,4 +1,4 @@
-import Link from 'next/link';
+// import Link from 'next/link';
 import React from 'react'
 // import { CgGitFork } from 'react-icons/cg';
 // import { IoStar } from 'react-icons/io5';
@@ -11,9 +11,9 @@ const FooterSection = () => {
               <div className="absolute top-0 h-[1px] w-1/2  bg-gradient-to-r from-transparent via-violet-500 to-transparent"></div>
             </div>
             <div className="flex flex-col md:flex-row items-center justify-between">
-              <p className="text-sm">
+              {/* <p className="text-sm">
                 © Developer Portfolio by <Link target="_blank" href="https://www.linkedin.com/in/abu-said-bd/" className="text-[#16f2b3]">Sounak Das</Link>
-              </p>
+              </p> */}
               {/* <div className="flex items-center gap-5">
                 <Link
                   target="_blank"
