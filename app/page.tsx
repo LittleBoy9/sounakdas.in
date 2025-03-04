@@ -20,7 +20,7 @@ export default function Home() {
       {/* <BlogSection /> */}
       <ContactSection />
 
-      <FooterSection />
+      {/* <FooterSection /> */}
     </div>
   );
 }
