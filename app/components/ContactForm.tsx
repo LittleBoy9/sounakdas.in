@@ -36,8 +36,9 @@ const ContactForm = () => {
     try {
       setIsLoading(true);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_APP_URL}/api/contact`,
+      console.log("process.env.NEXT_PUBLIC_APP_URL ",process.env.NEXT_PUBLIC_APP_URL);
+      await axios.post(
+        `/api/contact`,
         userInput
       );
 
@@ -57,6 +58,40 @@ const ContactForm = () => {
       setIsLoading(false);
     }
   };
+
+  // const handleSendMail = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+
+  //   if (!userInput.email || !userInput.message || !userInput.name) {
+  //     setError({ ...error, required: true });
+  //     return;
+  //   } else if (error.email) {
+  //     return;
+  //   } else {
+  //     setError({ ...error, required: false });
+  //   }
+
+  //   try {
+  //     setIsLoading(true);
+
+
+      
+  //     toast.success("Message sent successfully!");
+  //     setUserInput({
+  //       name: "",
+  //       email: "",
+  //       message: "",
+  //     });
+  //   } catch (err) {
+  //     if (axios.isAxiosError(err) && err.response) {
+  //       toast.error(err.response.data.message);
+  //     } else {
+  //       toast.error("An unexpected error occurred.");
+  //     }
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   return (
     <div>
