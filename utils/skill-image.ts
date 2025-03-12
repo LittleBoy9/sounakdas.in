@@ -81,7 +81,7 @@ import kubernetes from '../public/assets/svg/skills/kubernetes.svg'
 import linux from '../public/assets/svg/skills/linux.svg'
 import sqlalchemy from '../public/assets/svg/skills/sqlalchemy.svg'
 import fastapi from '../public/assets/svg/skills/fastapi.svg'
-
+import ubuntu from '../public/assets/svg/skills/ubuntu.svg'
 
 
 export const skillsImage = (skill: string) => {
@@ -211,6 +211,8 @@ export const skillsImage = (skill: string) => {
       return azure;
     case 'blender':
       return blender;
+    case 'ubuntu':
+      return ubuntu;   
     case 'fastify':
       return fastify;
     case 'figma':
