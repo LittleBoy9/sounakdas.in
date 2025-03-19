@@ -12,6 +12,44 @@ export const metadata: Metadata = {
   title: "Portfolio of Sounak Das - Senior Software Engineer",
   description:
     "This is the portfolio of Sounak Das. I am a full stack developer and a self-taught developer. I love to learn new things and I am always open to collaborating with others. I am a quick learner and I am always looking for new challenges.",
+  keywords: [
+    "Sounak Das",
+    "Portfolio",
+    "Full Stack Developer",
+    "Senior Software Engineer",
+    "React Developer",
+    "Node Developer",
+    "Next.js Developer",
+    "TypeScript Developer",
+    "JavaScript Developer",
+    "HTML Developer",
+    "CSS Developer",
+    "TailwindCSS Developer",
+    "MongoDB Developer",
+    "Express Developer",
+    "MERN Stack Developer",
+    "MEAN Stack Developer",
+    "PWA Developer",
+    "Serverless Developer",
+    "AWS Developer",
+    'Google Cloud Developer',
+    'Azure Developer',
+    'Firebase Developer',
+    'Netlify Developer',
+    'Vercel Developer',
+    'Heroku Developer',
+    'Docker Developer',
+    "Jobs",
+    "Hire Me",
+    "Resume",
+    "Contact Me",
+    "Blog",
+    "Projects",
+    "Education",
+    "Experience",
+    "Skills",
+    "About Me",
+  ]
 };
 
 const RootLayout = ({
@@ -41,6 +79,7 @@ const RootLayout = ({
             `,
           }}
         />
+        
       </head>
       <body className={inter.className}>
         {/* <TawkTo /> */}
