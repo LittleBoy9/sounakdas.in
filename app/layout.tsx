@@ -1,55 +1,31 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "/styles/css/card.scss";
 import "/styles/css/globals.scss";
 import { GoogleTagManager } from "@next/third-parties/google";
 import NavSection from "./components/NavSection";
 import Script from "next/script";
-// import TawkTo from "./components/TawkTo";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Portfolio of Sounak Das - Senior Software Engineer",
+  title: "Sounak Das — Engineer & Builder",
   description:
-    "This is the portfolio of Sounak Das. I am a full stack developer and a self-taught developer. I love to learn new things and I am always open to collaborating with others. I am a quick learner and I am always looking for new challenges.",
+    "I build products — from AI-powered platforms to full-stack SaaS. Engineer, builder, maker based in Bangalore.",
   keywords: [
     "Sounak Das",
-    "Portfolio",
+    "Engineer",
+    "Builder",
     "Full Stack Developer",
-    "Senior Software Engineer",
-    "React Developer",
-    "Node Developer",
-    "Next.js Developer",
-    "TypeScript Developer",
-    "JavaScript Developer",
-    "HTML Developer",
-    "CSS Developer",
-    "TailwindCSS Developer",
-    "MongoDB Developer",
-    "Express Developer",
-    "MERN Stack Developer",
-    "MEAN Stack Developer",
-    "PWA Developer",
-    "Serverless Developer",
-    "AWS Developer",
-    'Google Cloud Developer',
-    'Azure Developer',
-    'Firebase Developer',
-    'Netlify Developer',
-    'Vercel Developer',
-    'Heroku Developer',
-    'Docker Developer',
-    "Jobs",
-    "Hire Me",
-    "Resume",
-    "Contact Me",
-    "Blog",
-    "Projects",
-    "Education",
-    "Experience",
-    "Skills",
-    "About Me",
-  ]
+    "Product Builder",
+    "SaaS",
+    "AI Applications",
+    "React",
+    "Next.js",
+    "Node.js",
+    "TypeScript",
+    "Cloud Architecture",
+    "Bangalore Developer",
+  ],
 };
 
 const RootLayout = ({
@@ -59,10 +35,10 @@ const RootLayout = ({
 }>) => {
   return (
     <html lang="en">
-      <head>
-        {/* Google Analytics Script */}
+      <body className={`${inter.className} antialiased`}>
+        <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM as string} />
         <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GA_ID}`}
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
           strategy="afterInteractive"
         />
         <Script
@@ -73,22 +49,18 @@ const RootLayout = ({
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', '${process.env.GA_ID}', {
+              gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', {
                 page_path: window.location.pathname,
               });
             `,
           }}
         />
-        
-      </head>
-      <body className={inter.className}>
-        {/* <TawkTo /> */}
-        <main className="min-h-screen relative mx-auto px-6 sm:px-12 lg:max-w-[70rem] xl:max-w-[76rem] 2xl:max-w-[92rem] text-white">
-          <NavSection />
+        <div className="noise-overlay" />
+        <NavSection />
+        <main className="relative">
           {children}
         </main>
       </body>
-      <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM as string} />
     </html>
   );
 };

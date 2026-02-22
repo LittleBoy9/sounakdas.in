@@ -1,41 +1,50 @@
-// import Link from 'next/link';
-import React from 'react'
-// import { CgGitFork } from 'react-icons/cg';
-// import { IoStar } from 'react-icons/io5';
+"use client";
+
+import React from "react";
+import Link from "next/link";
+import { personalData } from "@/utils/data/personal-data";
+import { BsGithub, BsLinkedin } from "react-icons/bs";
 
 const FooterSection = () => {
-    return (
-        <div className="relative border-t bg-[#0d1224] border-[#353951] text-white">
-          <div className="mx-auto px-6 sm:px-12 lg:max-w-[70rem] xl:max-w-[76rem] 2xl:max-w-[92rem] py-6 lg:py-10">
-            <div className="flex justify-center -z-40">
-              <div className="absolute top-0 h-[1px] w-1/2  bg-gradient-to-r from-transparent via-violet-500 to-transparent"></div>
-            </div>
-            <div className="flex flex-col md:flex-row items-center justify-between">
-              {/* <p className="text-sm">
-                © Developer Portfolio by <Link target="_blank" href="https://www.linkedin.com/in/abu-said-bd/" className="text-[#16f2b3]">Sounak Das</Link>
-              </p> */}
-              {/* <div className="flex items-center gap-5">
-                <Link
-                  target="_blank"
-                  href="https://github.com/said7388/developer-portfolio"
-                  className="flex items-center gap-2 uppercase hover:text-[#16f2b3]"
-                >
-                  <IoStar />
-                  <span>Star</span>
-                </Link>
-                <Link
-                  target="_blank"
-                  href="https://github.com/said7388/developer-portfolio/fork"
-                  className="flex items-center gap-2 uppercase hover:text-[#16f2b3]"
-                >
-                  <CgGitFork />
-                  <span>Fork</span>
-                </Link>
-              </div> */}
-            </div>
+  return (
+    <footer className="relative border-t border-white/5 bg-[#050816]">
+      <div className="max-w-6xl mx-auto px-6 py-12">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex flex-col items-center md:items-start gap-2">
+            <Link href="/" className="text-lg font-bold text-white">
+              {personalData.name.split(" ")[0].charAt(0) + personalData.name.split(" ")[0].slice(1).toLowerCase()}
+              <span className="text-gradient">.</span>
+            </Link>
+            <p className="text-sm text-[#64748b]">
+              {personalData.designation} — {personalData.address}
+            </p>
           </div>
-        </div >
-      );
-}
 
-export default FooterSection
+          <div className="flex items-center gap-4">
+            {[
+              { icon: BsGithub, href: personalData.github },
+              { icon: BsLinkedin, href: personalData.linkedIn },
+            ].map((social, i) => (
+              <Link
+                key={i}
+                href={social.href}
+                target="_blank"
+                className="text-[#64748b] hover:text-[#00f0ff] transition-colors duration-300"
+              >
+                <social.icon size={18} />
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-8 pt-8 border-t border-white/5 text-center">
+          <p className="text-xs text-[#475569]">
+            &copy; {new Date().getFullYear()} {personalData.name}. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default FooterSection;
