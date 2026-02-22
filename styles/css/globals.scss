@@ -4,36 +4,284 @@
 
 :root {
   --foreground-rgb: rgb(211, 216, 232);
+  --bg-primary: #050816;
+  --bg-secondary: #0a0f1e;
+  --accent-cyan: #00f0ff;
+  --accent-purple: #7c3aed;
+  --accent-pink: #ec4899;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --glass-bg: rgba(15, 23, 42, 0.6);
+  --glass-border: rgba(148, 163, 184, 0.1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background-color: #0d1224;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  overflow-x: hidden;
 }
 
-#sticky-card-1 {
-  --index: 1;
+::selection {
+  background: var(--accent-cyan);
+  color: var(--bg-primary);
 }
 
-#sticky-card-2 {
-  --index: 2;
+::-webkit-scrollbar {
+  width: 6px;
 }
 
-#sticky-card-3 {
-  --index: 3;
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
 }
 
-#sticky-card-4 {
-  --index: 4;
+::-webkit-scrollbar-thumb {
+  background: var(--accent-purple);
+  border-radius: 3px;
 }
 
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-cyan);
+}
+
+// Noise texture overlay
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+// Animated gradient orbs
+.gradient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.15;
+  pointer-events: none;
+
+  &--cyan {
+    background: var(--accent-cyan);
+  }
+
+  &--purple {
+    background: var(--accent-purple);
+  }
+
+  &--pink {
+    background: var(--accent-pink);
+  }
+}
+
+// Grid background pattern
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(124, 58, 237, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124, 58, 237, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+// Section divider
+.section-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 240, 255, 0.3),
+    rgba(124, 58, 237, 0.3),
+    transparent
+  );
+}
+
+// Glassmorphism card
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+}
+
+// Text gradient
+.text-gradient {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-pink {
+  background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// Magnetic hover button
+.magnetic-btn {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  &:hover::before {
+    opacity: 0.1;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 40px rgba(0, 240, 255, 0.2);
+  }
+}
+
+// Reveal animation helpers
+.reveal-up {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+}
+
+// Floating animation
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(2deg); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+// Cursor glow effect
+.cursor-glow {
+  position: fixed;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.06), transparent 70%);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  transition: all 0.15s ease-out;
+}
+
+// Timeline styles
+.timeline-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--accent-cyan),
+    var(--accent-purple),
+    transparent
+  );
+  transform: translateX(-50%);
+
+  @media (max-width: 1024px) {
+    left: 20px;
+  }
+}
+
+.timeline-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent-cyan);
+  border: 3px solid var(--bg-primary);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+
+  @media (max-width: 1024px) {
+    left: 20px;
+  }
+}
+
+// Skill grid hover
+.skill-item {
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent-cyan);
+    box-shadow: 0 8px 30px rgba(0, 240, 255, 0.1);
+  }
+}
+
+// Contact form styles
+.form-input {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  border-radius: 12px;
+  padding: 14px 18px;
+  color: var(--text-primary);
+  font-size: 15px;
+  transition: all 0.3s;
+  width: 100%;
+  outline: none;
+
+  &::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.6;
+  }
+
+  &:focus {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.1);
+  }
+}
+
+// Sticky card styles kept for backwards compat
+#sticky-card-1 { --index: 1; }
+#sticky-card-2 { --index: 2; }
+#sticky-card-3 { --index: 3; }
+#sticky-card-4 { --index: 4; }
 .sticky-card {
-  // padding-top: calc(var(--index) * 2.5rem);
   top: calc(var(--index) * 4rem);
 }
