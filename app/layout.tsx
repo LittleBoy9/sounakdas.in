@@ -37,24 +37,6 @@ const RootLayout = ({
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
         <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM as string} />
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
-          strategy="afterInteractive"
-        />
-        <Script
-          id="google-analytics"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', {
-                page_path: window.location.pathname,
-              });
-            `,
-          }}
-        />
         <div className="noise-overlay" />
         <NavSection />
         <main className="relative">
