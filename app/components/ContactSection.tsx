@@ -1,114 +1,76 @@
-"use client";
-
-import React from "react";
-import { motion } from "framer-motion";
-import { personalData } from "@/utils/data/personal-data";
 import Link from "next/link";
-import { BsGithub, BsLinkedin } from "react-icons/bs";
-import ContactForm from "./ContactForm";
+import Eyebrow from "./Eyebrow";
+import { personalData } from "@/utils/data/personal-data";
 
-const ContactSection = () => {
-  return (
-    <section id="contact" className="relative py-24 lg:py-32">
-      <div className="section-divider mb-24" />
+/**
+ * The old contact form is intentionally replaced by a direct mailto. The
+ * `app/api/contact` route and `ContactForm.tsx` still work — to bring the form
+ * back, render it here in place of this detail stack.
+ */
+const details = [
+  { label: "Phone", value: personalData.phone },
+  { label: "GitHub", value: "/LittleBoy9", href: personalData.github },
+  { label: "LinkedIn", value: "/in/sounakdas", href: personalData.linkedIn },
+  { label: "Packages", value: "npm.sounakdas.in", href: personalData.npm },
+  { label: "Resume", value: "resume.pdf \u2197", href: personalData.resume },
+  { label: "Location", value: personalData.address },
+];
 
-      {/* Background orbs */}
-      <div className="gradient-orb gradient-orb--cyan absolute top-0 -right-64 w-[500px] h-[500px] opacity-10" />
-      <div className="gradient-orb gradient-orb--purple absolute bottom-0 -left-64 w-[400px] h-[400px] opacity-10" />
+const ContactSection = () => (
+  <section
+    id="contact"
+    className="grid items-start gap-14 px-gutter pb-14 pt-[100px] split:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)] split:gap-20"
+  >
+    <div className="flex flex-col gap-[26px]">
+      <Eyebrow>07 — Contact</Eyebrow>
+      <h2 className="max-w-[600px] text-h2lg font-semibold text-balance">
+        Let&apos;s build something interesting together.
+      </h2>
+      <p className="max-w-[520px] text-[17px] leading-[1.6] text-muted text-pretty">
+        Have an idea, a project, or just want to talk? Fastest way to reach me is email — I
+        usually reply within a day.
+      </p>
+      <Link
+        href={`mailto:${personalData.email}`}
+        className="email-underline w-fit break-all pb-1 text-email font-medium text-accent-2"
+      >
+        {personalData.email}
+      </Link>
+    </div>
 
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
-        {/* Section Label */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="mb-4"
-        >
-          <span className="text-sm font-mono text-[#00f0ff] tracking-widest uppercase">
-            05 — Contact
-          </span>
-        </motion.div>
+    <div className="flex flex-col gap-px border border-line bg-line">
+      {details.map((row) => {
+        const inner = (
+          <>
+            <span className="text-meta uppercase text-muted-2">{row.label}</span>
+            <span className="font-mono text-[14px]">{row.value}</span>
+          </>
+        );
 
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-3xl lg:text-4xl font-bold text-white mb-6"
-        >
-          Let&apos;s <span className="text-gradient">connect</span>
-        </motion.h2>
+        const className = "flex items-center justify-between gap-5 bg-bg px-6 py-5";
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-[#94a3b8] text-base lg:text-lg max-w-xl mb-16"
-        >
-          Have an idea, a project, or just want to talk? I&apos;m always up for building something interesting together.
-        </motion.p>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-          {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.8 }}
-          >
-            <ContactForm />
-          </motion.div>
-
-          {/* Contact Info */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="flex flex-col justify-center"
-          >
-            <div className="glass-card p-8 lg:p-10">
-              <h3 className="text-xl font-semibold text-white mb-8">Contact Details</h3>
-
-              <div className="flex flex-col gap-6">
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-full bg-[#00f0ff]/10 flex items-center justify-center text-[#00f0ff]">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                  </div>
-                  <div>
-                    <p className="text-xs text-[#64748b] uppercase tracking-wider">Location</p>
-                    <p className="text-[#94a3b8]">{personalData.address}</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Social Links */}
-              <div className="mt-10 pt-8 border-t border-white/5">
-                <p className="text-xs text-[#64748b] uppercase tracking-wider mb-4">Connect</p>
-                <div className="flex gap-3">
-                  {[
-                    { icon: BsGithub, href: personalData.github },
-                    { icon: BsLinkedin, href: personalData.linkedIn },
-                  ].map((social, i) => (
-                    <Link
-                      key={i}
-                      href={social.href}
-                      target="_blank"
-                      className="p-3 rounded-xl border border-white/5 text-[#94a3b8] hover:text-[#00f0ff] hover:border-[#00f0ff]/30 hover:bg-[#00f0ff]/5 transition-all duration-300"
-                    >
-                      <social.icon size={18} />
-                    </Link>
-                  ))}
-                </div>
-              </div>
+        if (!row.href) {
+          return (
+            <div key={row.label} className={className}>
+              {inner}
             </div>
-          </motion.div>
-        </div>
-      </div>
-    </section>
-  );
-};
+          );
+        }
+
+        return (
+          <Link
+            key={row.label}
+            href={row.href}
+            target="_blank"
+            rel="noopener"
+            className={`${className} wash-hover`}
+          >
+            {inner}
+          </Link>
+        );
+      })}
+    </div>
+  </section>
+);
 
 export default ContactSection;

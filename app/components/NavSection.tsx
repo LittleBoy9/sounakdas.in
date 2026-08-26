@@ -1,119 +1,89 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { personalData } from "@/utils/data/personal-data";
+import { useState } from "react";
+import ThemeToggle from "./ThemeToggle";
 
 const navItems = [
   { label: "About", href: "/#about" },
-  { label: "Work", href: "/#what-i-build" },
+  { label: "Work", href: "/#work" },
+  { label: "Products", href: "/#products" },
+  { label: "Open Source", href: "/#opensource" },
   { label: "Experience", href: "/#experience" },
-  { label: "Skills", href: "/#skills" },
-  { label: "Contact", href: "/#contact" },
 ];
 
 const NavSection = () => {
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const [open, setOpen] = useState(false);
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
-      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${
-        scrolled
-          ? "bg-[rgba(5,8,22,0.8)] backdrop-blur-xl border-b border-white/5 shadow-lg shadow-black/10"
-          : "bg-transparent"
-      }`}
-    >
-      <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-16 lg:h-20">
-        <Link href="/" className="relative group">
-          <span className="text-xl font-bold tracking-tight text-white">
-            {personalData.name.split(" ")[0].charAt(0) + personalData.name.split(" ")[0].slice(1).toLowerCase()}
-            <span className="text-gradient">.</span>
-          </span>
+    <nav className="sticky top-0 z-50 border-b border-line bg-[var(--bg-blur)] backdrop-blur-[12px]">
+      <div className="flex items-center justify-between gap-6 px-gutter py-[18px]">
+        <Link
+          href="/#top"
+          className="text-[15px] font-semibold tracking-[0.02em]"
+          onClick={() => setOpen(false)}
+        >
+          SOUNAK<span className="text-accent">.</span>
         </Link>
 
-        {/* Desktop Nav */}
-        <ul className="hidden md:flex items-center gap-1">
-          {navItems.map((item, i) => (
-            <motion.li
+        <div className="hidden items-center gap-[26px] text-[11.5px] uppercase tracking-[0.14em] nav:flex">
+          {navItems.map((item) => (
+            <Link
               key={item.label}
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 * i + 0.3, duration: 0.5 }}
+              href={item.href}
+              className="text-muted transition-colors hover:text-accent-2"
             >
-              <Link
-                href={item.href}
-                className="relative px-4 py-2 text-sm text-[#94a3b8] hover:text-white transition-colors duration-300 group"
-              >
-                {item.label}
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-gradient-to-r from-[#00f0ff] to-[#7c3aed] group-hover:w-3/4 transition-all duration-300" />
-              </Link>
-            </motion.li>
+              {item.label}
+            </Link>
           ))}
-        </ul>
+          <ThemeToggle />
+          <Link
+            href="/#contact"
+            className="border border-line-4 px-4 py-[9px] tracking-[0.12em] transition-colors hover:border-accent hover:text-accent-2"
+          >
+            Contact
+          </Link>
+        </div>
 
-        {/* Mobile Toggle */}
-        <button
-          className="md:hidden relative w-8 h-8 flex items-center justify-center"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle menu"
-        >
-          <div className="flex flex-col gap-1.5">
+        <div className="flex items-center gap-3 nav:hidden">
+          <ThemeToggle />
+          <button
+            type="button"
+            onClick={() => setOpen(!open)}
+            aria-label="Toggle menu"
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            className="flex h-11 w-11 flex-col items-center justify-center gap-[5px]"
+          >
             <span
-              className={`block w-6 h-0.5 bg-white transition-all duration-300 ${
-                mobileOpen ? "rotate-45 translate-y-2" : ""
-              }`}
+              className={`block h-px w-6 bg-fg transition-transform ${open ? "translate-y-[6px] rotate-45" : ""}`}
             />
+            <span className={`block h-px w-6 bg-fg transition-opacity ${open ? "opacity-0" : ""}`} />
             <span
-              className={`block w-6 h-0.5 bg-white transition-all duration-300 ${
-                mobileOpen ? "opacity-0" : ""
-              }`}
+              className={`block h-px w-6 bg-fg transition-transform ${open ? "-translate-y-[6px] -rotate-45" : ""}`}
             />
-            <span
-              className={`block w-6 h-0.5 bg-white transition-all duration-300 ${
-                mobileOpen ? "-rotate-45 -translate-y-2" : ""
-              }`}
-            />
-          </div>
-        </button>
+          </button>
+        </div>
       </div>
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden bg-[rgba(5,8,22,0.95)] backdrop-blur-xl border-b border-white/5"
-          >
-            <div className="px-6 py-6 flex flex-col gap-4">
-              {navItems.map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  onClick={() => setMobileOpen(false)}
-                  className="text-[#94a3b8] hover:text-white transition-colors text-lg"
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.nav>
+      {open && (
+        <div
+          id="mobile-menu"
+          className="flex flex-col border-t border-line px-gutter py-2 nav:hidden"
+        >
+          {[...navItems, { label: "Contact", href: "/#contact" }].map((item) => (
+            <Link
+              key={item.label}
+              href={item.href}
+              onClick={() => setOpen(false)}
+              className="flex min-h-[44px] items-center text-[13px] uppercase tracking-[0.14em] text-muted transition-colors hover:text-accent-2"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </div>
+      )}
+    </nav>
   );
 };
 

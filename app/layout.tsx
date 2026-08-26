@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { ThemeProvider } from "next-themes";
 import "/styles/css/globals.scss";
 import { GoogleTagManager } from "@next/third-parties/google";
 import NavSection from "./components/NavSection";
+import ScrollToTop from "@/helper/ScrollToTop";
 import {
   PERSON_NAME,
   SITE_DESCRIPTION,
@@ -11,7 +13,19 @@ import {
   structuredData,
 } from "./seo";
 
-const inter = Inter({ subsets: ["latin"] });
+const sans = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-sans",
+  display: "swap",
+});
+
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-mono",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -68,18 +82,28 @@ const RootLayout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <html lang="en">
-      <body className={`${inter.className} antialiased`}>
+    // next-themes writes data-theme before paint, so there is no flash of the
+    // wrong theme. suppressHydrationWarning is required because of that write.
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${sans.variable} ${mono.variable}`}
+    >
+      <body className="font-sans antialiased">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
         <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM as string} />
-        <div className="noise-overlay" />
-        <NavSection />
-        <main className="relative">
-          {children}
-        </main>
+        <ThemeProvider
+          attribute="data-theme"
+          defaultTheme="dark"
+          enableSystem={false}
+        >
+          <NavSection />
+          <main className="relative">{children}</main>
+          <ScrollToTop />
+        </ThemeProvider>
       </body>
     </html>
   );
