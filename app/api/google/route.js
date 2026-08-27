@@ -3,7 +3,9 @@ import { NextResponse } from "next/server";
 
 export async function POST(request) {
   const reqBody = await request.json();
-  const secret_key = process.env.NEXT_PUBLIC_RECAPTCHA_SECRET_KEY;
+  // Server-only: the NEXT_PUBLIC_ prefix would inline this verification
+  // secret into the client bundle, where anyone could read it.
+  const secret_key = process.env.RECAPTCHA_SECRET_KEY;
 
   try {
     const url = `https://www.google.com/recaptcha/api/siteverify?secret=${secret_key}&response=${reqBody.token}`;
