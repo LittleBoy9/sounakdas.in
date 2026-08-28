@@ -13,6 +13,11 @@ const CredentialsSection = () => (
         <span className="text-[13.5px] leading-[1.5] text-muted text-pretty">{c.detail}</span>
       </div>
     ))}
+    {/* Three cells across two columns leaves one empty between 881px and
+        1050px; see the note in OpenSourceSection. */}
+    {credentials.length % 2 === 1 && (
+      <div aria-hidden className="hidden bg-bg split:block grid3:hidden" />
+    )}
   </section>
 );
 

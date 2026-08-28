@@ -8,7 +8,7 @@ const OpenSourceSection = () => (
     <SectionHeading
       id="opensource"
       eyebrow="04 — Open source"
-      title="Ten packages, 4,800+ downloads"
+      title="Eleven packages, 5,100+ downloads"
       className="!pb-9"
       aside={
         <Link
@@ -38,6 +38,10 @@ const OpenSourceSection = () => (
           <span className="text-[14px] leading-[1.5] text-muted">{p.body}</span>
         </div>
       ))}
+      {/* The rules are a 1px gap over a --line parent, so an unfilled cell in
+          the last row would show that colour as a solid block. With an odd
+          package count the two-column layout leaves exactly one. */}
+      {packages.length % 2 === 1 && <div aria-hidden className="hidden bg-bg grid3:block" />}
     </div>
   </section>
 );

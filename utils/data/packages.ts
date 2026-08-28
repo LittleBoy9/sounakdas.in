@@ -9,4 +9,5 @@ export const packages = [
   { name: "rgb-curve", body: "Lightweight RGB curve editor for React, in the style of Lightroom colour grading." },
   { name: "instaskeleton", body: "Ultra-light React skeleton loader with JSX inference and shimmer animations." },
   { name: "logpaint", body: "Lightweight colored logger for Node.js with a configure-once, log-everywhere API." },
+  { name: "changelog-from-commits", body: "Generates a polished CHANGELOG.md from Conventional Commits \u2014 zero-config, monorepo and gitmoji aware." },
 ];

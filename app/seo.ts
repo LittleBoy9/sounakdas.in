@@ -9,7 +9,7 @@ export const SITE_DESCRIPTION =
   "Sounak Das is a Senior Software Engineer II at Vitra.ai in Bengaluru, building AI-powered " +
   "translation products with Next.js, NestJS and AWS \u2014 including a campaign that served " +
   "300,000+ users. Ships his own products too: AudioFrame, the Hatch command palette, three " +
-  "Tauri desktop apps, and 10 open-source npm packages.";
+  "Tauri desktop apps, and 11 open-source npm packages.";
 
 /**
  * Profiles linked with `sameAs` so search engines and answer engines can resolve
