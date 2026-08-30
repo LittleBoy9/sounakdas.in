@@ -12,7 +12,7 @@ export const personalData = {
     "I joined Vitra.ai as an intern and was promoted three times in five years. Today I build Universe, the company's flagship translation platform — image and document translation through to the credit, billing, and job-orchestration systems behind it. Before that I shipped a consumer campaign that served over 300,000 users at a failure rate below 1%.",
     "I don't just write code — I ship products. That habit carries outside work too: most evenings I'm building desktop apps in Tauri, publishing npm packages, or shipping something small that solves a problem I actually have.",
   ],
-  email: "iamsounak01@gmail.com",
+  email: "contact@sounakdas.in",
   phone: "+91 73844 49005",
   address: "Bengaluru, IN",
   github: "https://github.com/LittleBoy9",
