@@ -10,7 +10,20 @@ const ProductCard = ({ product }: { product: Product }) => {
         <span className="text-accent">{product.status}</span>
         <span className="text-muted-2">{product.where}</span>
       </span>
-      <span className="text-[22px] font-semibold tracking-[-0.025em]">{product.name}</span>
+      <span className="flex items-baseline gap-2 text-[22px] font-semibold tracking-[-0.025em] transition-colors group-hover:text-accent-2 group-focus-visible:text-accent-2">
+        {product.name}
+        {product.href && (
+          <>
+            {/* A standing cue that this card goes somewhere. The hover wash on
+                its own is undiscoverable until the pointer lands, and does not
+                exist at all on touch. */}
+            <span aria-hidden="true" className="text-[15px] font-normal text-accent-2">
+              ↗
+            </span>
+            <span className="sr-only">(opens in a new tab)</span>
+          </>
+        )}
+      </span>
       <span className="text-[13px] tracking-[0.02em] text-muted">{product.tagline}</span>
       <span className="text-[14px] leading-[1.6] text-muted text-pretty">{product.body}</span>
       <span className="flex flex-wrap gap-[7px] pt-1">
@@ -32,7 +45,7 @@ const ProductCard = ({ product }: { product: Product }) => {
       href={product.href}
       target="_blank"
       rel="noopener"
-      className={`${className} wash-hover`}
+      className={`${className} wash-hover group outline-offset-[-2px] focus-visible:outline focus-visible:outline-1 focus-visible:outline-accent`}
     >
       {content}
     </Link>
