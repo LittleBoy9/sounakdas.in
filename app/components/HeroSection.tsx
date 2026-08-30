@@ -4,7 +4,7 @@ import { personalData } from "@/utils/data/personal-data";
 const HeroSection = () => (
   <section
     id="top"
-    className="flex flex-col gap-8 border-b border-line px-gutter pb-[68px] pt-[110px]"
+    className="flex flex-col gap-8 border-b border-line px-gutter pb-[68px] pt-[clamp(56px,12vw,110px)]"
   >
     <div className="flex items-center gap-2.5 font-mono text-[11.5px] uppercase tracking-[0.16em]">
       <span className="status-dot h-[7px] w-[7px] shrink-0 rounded-full bg-accent" />
@@ -13,7 +13,7 @@ const HeroSection = () => (
     </div>
 
     <h1 className="max-w-[1000px] text-display font-semibold text-balance">
-      Engineer. Builder.
+      Engineer. Builder.{" "}
       <br />
       <span className="text-accent">Maker.</span>
     </h1>

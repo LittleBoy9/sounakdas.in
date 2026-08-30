@@ -4,6 +4,7 @@ import { ThemeProvider } from "next-themes";
 import "/styles/css/globals.scss";
 import { GoogleTagManager } from "@next/third-parties/google";
 import NavSection from "./components/NavSection";
+import Preloader from "./components/Preloader";
 import ScrollToTop from "@/helper/ScrollToTop";
 import {
   PERSON_NAME,
@@ -97,9 +98,30 @@ const RootLayout = ({
         <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM as string} />
         <ThemeProvider
           attribute="data-theme"
-          defaultTheme="dark"
+          defaultTheme="light"
           enableSystem={false}
         >
+        {/* Runs before paint: if this tab has already seen the intro, stamp
+            the document so CSS hides the curtain with no flash. Wrapped in
+            try/catch because sessionStorage throws in some embedded contexts,
+            and deliberately not a client component — with JS disabled the flag
+            can never be set, so the curtain just plays every time. */}
+        {/* The scroll reveals ship inline opacity:0. With JavaScript off nothing
+            ever un-hides them, so everything below the hero would render blank —
+            for a reader, and for any crawler that executes CSS but not JS. */}
+        <noscript
+          dangerouslySetInnerHTML={{
+            __html:
+              "<style>main>div{opacity:1!important;transform:none!important}</style>",
+          }}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(sessionStorage.getItem('sd-intro'))document.documentElement.dataset.intro='seen';else sessionStorage.setItem('sd-intro','1')}catch(e){}",
+          }}
+        />
+          <Preloader />
           <NavSection />
           <main className="relative">{children}</main>
           <ScrollToTop />

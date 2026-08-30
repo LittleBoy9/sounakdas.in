@@ -19,8 +19,8 @@ const AboutSection = () => (
       <Image
         src={personalData.profile}
         alt={personalData.name}
-        width={680}
-        height={850}
+        width={1000}
+        height={1000}
         priority
         sizes="(max-width: 880px) 300px, 340px"
         className="profile-photo aspect-[4/5] w-full max-w-[300px] border border-line-2 object-cover split:max-w-[340px]"

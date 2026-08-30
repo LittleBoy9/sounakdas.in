@@ -4,8 +4,6 @@ import { motion, useReducedMotion } from "framer-motion";
 
 type RevealProps = {
   children: React.ReactNode;
-  /** Play on mount instead of on scroll — for content above the fold. */
-  onMount?: boolean;
   delay?: number;
 };
 
@@ -17,7 +15,7 @@ type RevealProps = {
  * Under `prefers-reduced-motion` the element renders in its final state with
  * no initial offset, so there is nothing to animate and nothing to wait for.
  */
-const Reveal = ({ children, onMount = false, delay = 0 }: RevealProps) => {
+const Reveal = ({ children, delay = 0 }: RevealProps) => {
   const reduced = useReducedMotion();
 
   if (reduced) return <>{children}</>;
@@ -29,12 +27,8 @@ const Reveal = ({ children, onMount = false, delay = 0 }: RevealProps) => {
   return (
     <motion.div
       initial={hidden}
-      {...(onMount
-        ? { animate: shown }
-        : {
-            whileInView: shown,
-            viewport: { once: true, amount: 0.1, margin: "0px 0px -60px 0px" },
-          })}
+      whileInView={shown}
+      viewport={{ once: true, amount: 0.1, margin: "0px 0px -60px 0px" }}
       transition={transition}
     >
       {children}

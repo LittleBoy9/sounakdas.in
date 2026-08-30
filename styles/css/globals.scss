@@ -97,6 +97,147 @@ body {
   }
 }
 
+// ---------------------------------------------------------------------------
+// Intro curtain. The two panels are the page background; they part vertically
+// to reveal the site, which is the same grid-and-hairline vocabulary as the
+// rest of the page rather than a spinner bolted on top.
+//
+// Total run: 0.8s. Everything is declarative so no script has to finish for
+// the page to become usable.
+// ---------------------------------------------------------------------------
+
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  overflow: hidden;
+  pointer-events: none;
+  animation: preloader-dismiss 0s linear 0.8s forwards;
+}
+
+@keyframes preloader-dismiss {
+  to {
+    visibility: hidden;
+  }
+}
+
+.preloader__panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  // A hair over half so the two panels overlap and never show a seam.
+  height: 50.4%;
+  background: var(--bg);
+  animation-duration: 0.28s;
+  animation-delay: 0.52s;
+  animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+  animation-fill-mode: forwards;
+}
+
+.preloader__panel--top {
+  top: 0;
+  animation-name: preloader-part-up;
+}
+
+.preloader__panel--bottom {
+  bottom: 0;
+  animation-name: preloader-part-down;
+}
+
+@keyframes preloader-part-up {
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes preloader-part-down {
+  to {
+    transform: translateY(100%);
+  }
+}
+
+.preloader__content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(18px, 3.4vw, 26px);
+  transform: translate(-50%, -50%);
+  animation: preloader-content-out 0.12s ease 0.42s forwards;
+}
+
+@keyframes preloader-content-out {
+  to {
+    opacity: 0;
+  }
+}
+
+.preloader__mark {
+  font-size: clamp(28px, 7vw, 54px);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--fg);
+  white-space: nowrap;
+  opacity: 0;
+  // Letters start wide and draw together — the type settling into place.
+  animation: preloader-mark-in 0.34s cubic-bezier(0.22, 1, 0.36, 1) 0.03s forwards;
+}
+
+.preloader__dot {
+  color: var(--accent);
+}
+
+@keyframes preloader-mark-in {
+  from {
+    opacity: 0;
+    letter-spacing: 0.36em;
+  }
+  to {
+    opacity: 1;
+    letter-spacing: 0.02em;
+  }
+}
+
+.preloader__bar {
+  position: relative;
+  display: block;
+  width: clamp(140px, 34vw, 260px);
+  height: 1px;
+  overflow: hidden;
+  background: var(--line-3);
+
+  &::after {
+    content: "";
+    display: block;
+    height: 100%;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: preloader-bar 0.40s cubic-bezier(0.6, 0, 0.2, 1) 0.03s forwards;
+  }
+}
+
+@keyframes preloader-bar {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+// Already seen in this tab — skip straight to the page.
+[data-intro="seen"] .preloader {
+  display: none;
+}
+
+// No curtain at all when motion is reduced — the page is simply there.
+@media (prefers-reduced-motion: reduce) {
+  .preloader {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

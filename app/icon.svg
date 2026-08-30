@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <title>Sounak Das</title>
+  <rect width="64" height="64" fill="#0B0C0D"/>
+  <path d="M39 20 A 9.5 9.5 0 1 0 29.5 29.5 A 9.5 9.5 0 1 1 20 39"
+        fill="none" stroke="#ECEDEE" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="50" cy="49" r="7" fill="#14B8A6"/>
+</svg>

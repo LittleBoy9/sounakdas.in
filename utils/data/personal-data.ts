@@ -1,6 +1,6 @@
 export const personalData = {
   name: "SOUNAK DAS",
-  profile: "/png/profile.jpeg",
+  profile: "/png/profile.jpg",
   designation: "Engineer & Builder",
   role: "Senior Software Engineer II",
   company: "Vitra.ai",

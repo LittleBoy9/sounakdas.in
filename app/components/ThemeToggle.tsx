@@ -3,11 +3,41 @@
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 
+const SunIcon = () => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.6"
+    strokeLinecap="round"
+    className="h-[18px] w-[18px]"
+    aria-hidden="true"
+  >
+    <circle cx="12" cy="12" r="4.2" />
+    <path d="M12 2.4v2.2M12 19.4v2.2M2.4 12h2.2M19.4 12h2.2M5.4 5.4l1.6 1.6M16.9 16.9l1.7 1.7M18.6 5.4l-1.7 1.6M7 16.9l-1.6 1.7" />
+  </svg>
+);
+
+const MoonIcon = () => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.6"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="h-[18px] w-[18px]"
+    aria-hidden="true"
+  >
+    <path d="M20.6 14.7A8.7 8.7 0 0 1 9.3 3.4 8.7 8.7 0 1 0 20.6 14.7Z" />
+  </svg>
+);
+
 /**
- * Label shows the theme it will switch *to*. Until the component mounts we
- * cannot know the resolved theme, so it renders a fixed-width space instead —
- * that keeps the server and client markup identical and stops the nav from
- * reflowing once hydration fills the label in.
+ * Shows the theme it will switch *to*: a sun while dark, a moon while light.
+ * Until mount we cannot know the resolved theme, so the button renders at full
+ * size but empty — that keeps server and client markup identical and stops the
+ * nav from reflowing once hydration fills the icon in.
  */
 const ThemeToggle = () => {
   const { resolvedTheme, setTheme } = useTheme();
@@ -15,17 +45,18 @@ const ThemeToggle = () => {
 
   useEffect(() => setMounted(true), []);
 
-  const next = resolvedTheme === "light" ? "dark" : "light";
+  const isDark = resolvedTheme === "dark";
+  const next = isDark ? "light" : "dark";
 
   return (
     <button
       type="button"
       onClick={() => setTheme(next)}
-      title="Toggle theme"
+      title={`Switch to ${next} theme`}
       aria-label={`Switch to ${next} theme`}
-      className="inline-flex h-11 items-center border border-line-3 px-[13px] font-mono text-[10.5px] tracking-[0.14em] text-fg transition-colors hover:border-accent hover:text-accent-2 nav:h-auto nav:py-[9px]"
+      className="inline-flex h-11 w-11 items-center justify-center border border-line-3 text-fg transition-colors hover:border-accent hover:text-accent-2 nav:h-9 nav:w-9"
     >
-      {mounted ? next.toUpperCase() : "     "}
+      {mounted ? isDark ? <SunIcon /> : <MoonIcon /> : null}
     </button>
   );
 };

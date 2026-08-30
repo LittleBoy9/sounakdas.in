@@ -14,13 +14,12 @@ import FooterSection from "./components/FooterSection";
 export default function Home() {
   return (
     <>
-      {/* Above the fold, so this fades on mount rather than on scroll. */}
-      <Reveal onMount>
-        <HeroSection />
-      </Reveal>
-      <Reveal onMount delay={0.08}>
-        <StatsBar />
-      </Reveal>
+      {/* Deliberately not wrapped in Reveal. These sit behind the intro
+          curtain, so any entrance animation is invisible — and shipping them
+          at opacity:0 would make the h1, the largest element on the page,
+          ineligible for Largest Contentful Paint until hydration finished. */}
+      <HeroSection />
+      <StatsBar />
 
       <Reveal>
         <AboutSection />
